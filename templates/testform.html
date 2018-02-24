@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Sign In Test 2</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.field1.label }}<br>
+            {{ form.field1 }}
+        </p>
+        <p>
+            {{ form.field2.label }}<br>
+            {{ form.field2 }}
+        </p>
+        <p>
+            {{ form.field3.label }}<br>
+            {{ form.field3 }}
+        </p>
+        <p>
+            {{ form.field4.label }}<br>
+            {{ form.field4 }}
+        </p>     
+       <p>
+            {{ form.field5.label }}<br>
+            {{ form.field5 }}
+        </p>                          
+        <p>{{ form.submit }}</p>
+    </form>
+{% endblock %}

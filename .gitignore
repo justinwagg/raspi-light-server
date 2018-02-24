@@ -1,0 +1,8 @@
+*venv
+venv/*
+venv*
+*.pyc
+
+.AppleDouble
+.DS_Store
+.idea
