@@ -2,18 +2,20 @@
 <html>
     <head>
         {% if title %}
-        <title>{{ title }} - microblog</title>
+        <title>{{ title }} - microsite</title>
         {% else %}
-        <title>microblog</title>
+        <title>microsite</title>
         {% endif %}
     </head>
     <body>
         <div>
             Microblog:
-            <a href="/index">Home</a>
-            <a href="/">Home2</a>
+            <a href="/">Home</a>
+            <a href="/list">List</a>
+            <a href="/list2">List2</a>
+            <a href="/testform">Form</a>
         </div>
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
+        {% block table %}{% endblock %}
     </body>
 </html>

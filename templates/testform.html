@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Sign In Test 2</h1>
+<!-- <pre id="log"></pre> -->
+<link rel="stylesheet" href='/static/style.css' />
+    <h1>Device Control Panel</h1>
+
+<div style="float: left;">
+
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>
@@ -22,7 +27,46 @@
        <p>
             {{ form.field5.label }}<br>
             {{ form.field5 }}
-        </p>                          
+        </p>    
+       <p>
+            {{ form.field6.label }}<br>
+            {{ form.field6 }}
+        </p>                               
         <p>{{ form.submit }}</p>
     </form>
+</div>
+{% endblock %}
+
+{% block table %}
+<!doctype html>
+<html>
+   <body>
+   
+      <table border = 1>
+         <thead>
+            <td>device_id</td>
+            <td>on_time</td>
+            <td>off_time</td>
+            <td>low</td>            
+            <td>high</td>
+            <td>manual</td>
+            <td>created_on</td>
+         </thead>
+         {% for row in rows %}
+            <tr>
+               <td>{{ row["device_id"] }}</td>
+               <td>{{ row["on_time"] }}</td>
+               <td>{{ row["off_time"] }}</td>
+               <td>{{ row["low"] }}</td>  
+               <td>{{ row["high"] }}</td>
+               <td>{{ row["manual"] }}</td>
+               <td>{{ row["created_on"] }}</td>    
+            </tr>
+         {% endfor %}
+      </table>
+      
+      <a href = "/">Go back to home page</a>
+      
+   </body>
+</html>
 {% endblock %}

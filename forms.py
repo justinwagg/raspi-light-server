@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-
+import datetime
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, IntegerField
 from wtforms_components import TimeField
 from wtforms.validators import DataRequired
@@ -13,8 +13,9 @@ class LoginForm(FlaskForm):
 
 class TestForm(FlaskForm):		   
     field1 = SelectField('Device', choices=[('1', 'Device 1'), ('2', 'Device 2')], validators=[DataRequired()])
-    field2 = SelectField('Mode', choices=[('1', 'Mode 1'), ('2', 'Mode 2')], validators=[DataRequired()])
-    field3 = TimeField('On Time', validators=[DataRequired()])
-    field4 = TimeField('Off Time', validators=[DataRequired()])
-    field5 = IntegerField('Light Value', validators=[DataRequired()])
+    field2 = TimeField('On Time', default=datetime.datetime.now().time(), validators=[DataRequired()])
+    field3 = TimeField('Off Time', default=datetime.datetime.now().time(), validators=[DataRequired()])
+    field4 = IntegerField('Low Light Setting', default = 30, validators=[DataRequired()])
+    field5 = IntegerField('High Light Setting', default = 200, validators=[DataRequired()])
+    field6 = IntegerField('Manual Light Setting', default = 255, validators=[DataRequired()])
     submit = SubmitField('button')

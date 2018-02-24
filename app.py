@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, flash, redirect
 from config import Config
 from forms import LoginForm, TestForm
 import sqlite3 as sql
-
+import datetime
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -15,56 +15,28 @@ def index():
 @app.route('/testform', methods=['GET', 'POST'])
 def testform():
     form = TestForm()
-    if form.validate_on_submit():
-        print(request.form['field1'])
-        print(request.form['field2'])
-        print(request.form['field3'])
-        print(request.form['field4'])
-        print(request.form['field5'])   
+    con = sql.connect("database.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("select * from device_settings")
+    row = cur.fetchall()
+    con.close();
+    if form.validate_on_submit(): 
         try:
             with sql.connect("database.db") as con:
                 cur = con.cursor()
-                cur.execute("INSERT INTO test_table2 (device, mode, on_time, off_time, light_value) VALUES (?,?,?,?,?)", (request.form['field1'], request.form['field2'], request.form['field3'], request.form['field4'], request.form['field5']))
+                cur.execute("INSERT INTO device_settings (device_id, on_time, off_time, low, high, manual, created_on) VALUES (?,?,?,?,?,?,?)", (request.form['field1'], request.form['field2'], request.form['field3'], request.form['field4'], request.form['field5'], request.form['field6'], datetime.datetime.now()))
                 con.commit()
                 print('SQL Insert Success')
         except sql.Error as er:
             con.rollback()
             # print('SQL Insert Error: {}'.format(er.message))
-            print("An error occurred: %".format(e.args[0]))
+            print("An error occurred: %".format(e.args[0])) 
     else:
         print('Form Validity Error')
         print(form.errors)
-    return render_template('testform.html', form=form)
+    return render_template('testform.html', form=form, rows=row)
 
-
-
-
-
-@app.route('/addrec',methods = ['POST', 'GET'])
-def addrec():
-    msg = 'tetst'
-    if request.method == 'POST':
-        try:
-            nm = request.form['nm']
-            print(nm)
-            addr = request.form['add']
-            print(addr)
-            city = request.form['city']
-            print(city)
-            pin = request.form['pin']
-            print(pin)         
-            with sql.connect("database.db") as con:
-                cur = con.cursor()
-                # cur.execute("insert into students (name,addr,city,pin) values ('Emma', '21-39 24th St', 'Astoria', '1111')")
-                cur.execute("INSERT INTO students (name,addr,city,pin) VALUES (?,?,?,?)",(nm,addr,city,pin) )
-                con.commit()
-                msg = "Record successfully added"
-        except:
-            con.rollback()
-            msg = "error in insert operation"  
-        finally:
-            return render_template("result.html",msg = msg)
-            con.close()
 
 @app.route('/list')
 def list():
@@ -75,8 +47,18 @@ def list():
     cur.execute("select * from students")
     
     rows = cur.fetchall(); 
-    return render_template("list.html",rows = rows)
+    print(rows)
+    return render_template("list.html", rows=rows)
 
+@app.route('/list2')
+def list2():
+    con = sql.connect("database.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("select * from test_table2")
+    rows = cur.fetchall(); 
+    print(rows)
+    return render_template("list2.html", rows=rows)
 
 
 if __name__ == '__main__':
