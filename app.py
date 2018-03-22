@@ -68,7 +68,7 @@ def settings():
         print(form.errors)
         pass
     if request.method == 'POST':
-        return redirect(url_for('testform'))
+        return redirect(url_for('settings'))
     else:
         # Go get the settings
         cur.execute("select c.device_name, time_format(a.on_time, '%h:%i %p'), time_format(a.low_time, '%h:%i %p'), time_format(a.off_time, '%h:%i %p'), a.low, a.high, a.manual, a.created_on from flaskapp.device_settings a inner join (select device_id, max(id) as id from flaskapp.device_settings group by 1 ) b on a.device_id=b.device_id and a.id = b.id left join flaskapp.device_map c on a.device_id = c.device_id")
