@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+  ul{list-style-type:none;}
+</style>
+<div class = "container-fluid">
+  <h1>{{ title }}</h1>
+  <p class = "lead">
+    Control all the lights.
+  </p>
+</div>
+<div class = "col-md-4" style="float:left;padding:5px;">
+  <div class = "panel panel-default" style="">
+    <div class="panel-heading">Settings Input</div>
+    <div class="panel-body">
+      <form action="" method="post" >
+          {{ form.hidden_tag() }}
+          <p>
+              {{ form.device.label }}<br>
+              {{ form.device }}
+          </p>
+          <p>
+              {{ form.on_time.label }}<br>
+              {{ form.on_time }}
+          </p>
+          <p>
+              {{ form.low_time.label }}<br>
+              {{ form.low_time }}
+          </p>
+          <p>
+              {{ form.off_time.label }}<br>
+              {{ form.off_time }}
+          </p>
+          <p>
+              {{ form.low.label }}<br>
+              {{ form.low }}
+              {% for error in form.high.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+              {% endfor %}
+          </p>
+         <p>
+              {{ form.high.label }}<br>
+              {{ form.high }}
+              {% for error in form.high.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+              {% endfor %}
+          </p>
+         <p>
+              {{ form.manual.label }}<br>
+              {{ form.manual }}
+              {% for error in form.manual.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+              {% endfor %}
+          </p>
+          <p>{{ form.submit }}</p>
+      </form>
+    </div>
+  </div>
+</div>
+<div class = "table-responsive" style="padding:5px;">
+  <div class = "panel panel-default" style="">
+    <div class="panel-heading">Current Settings</div>
+      <div class="panel-body">
+    <!-- <div style="float: left;padding:5px"> -->
+        <table class = "table table-bordered">
+           <thead class = "thead-dark">
+              <th scope = "col">Light</th>
+              <th scope = "col">On Time</th>
+              <th scope = "col">Low Time</th>
+              <th scope = "col">Off Time</th>
+              <th scope = "col">Low Light</th>
+              <th scope = "col">High Light</th>
+              <th scope = "col">Manual Light</th>
+              <th scope = "col">Last Updated</th>
+           </thead>
+           {% for row in rows %}
+            <tr>
+               <td>{{ row[0] }}</td>
+               <td>{{ row[1] }}</td>
+               <td>{{ row[2] }}</td>
+               <td>{{ row[3] }}</td>
+               <td>{{ row[4] }}</td>
+               <td>{{ row[5] }}</td>
+               <td>{{ row[6] }}</td>
+               <td>{{ row[7] }}</td>
+            </tr>
+           {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

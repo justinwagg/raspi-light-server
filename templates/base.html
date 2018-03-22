@@ -1,21 +1,31 @@
+{%- extends "bootstrap/base.html" %}
 
-<html>
-    <head>
-        {% if title %}
-        <title>{{ title }} - microsite</title>
-        {% else %}
-        <title>microsite</title>
-        {% endif %}
-    </head>
-    <body>
-        <div>
-            Microblog:
-            <a href="/">Home</a>
-            <a href="/list">List</a>
-            <a href="/list2">List2</a>
-            <a href="/testform">Form</a>
-        </div>
-        {% block content %}{% endblock %}
-        {% block table %}{% endblock %}
-    </body>
-</html>
+<head>
+
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>Raspi-Home</title>
+    {% endif %}
+</head>
+
+
+{% block navbar %}
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Raspi-Home</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="/">Home</a></li>
+      <li><a href="/light-settings">Light Settings</a></li>
+    </ul>
+  </div>
+</nav>
+{% endblock %}
+{% block script %}
+
+{% endblock %}
+
+{% block datatable %} {% endblock %}
+{% block content %} {% endblock %}

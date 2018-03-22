@@ -6,3 +6,4 @@ venv*
 .AppleDouble
 .DS_Store
 .idea
+*.db
